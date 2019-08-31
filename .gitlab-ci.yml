@@ -1,0 +1,29 @@
+stages:
+  - test
+
+test_laravel:
+  stage: test
+  image: registry.gitlab.com/jhm-ciberman/cosecha-express-web:latest
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - vendor/
+    - node_modules/
+  services:
+    - mysql:5.7
+  variables:
+    MYSQL_DATABASE: homestead
+    MYSQL_ROOT_PASSWORD: secret
+    DB_HOST: mysql
+    DB_USERNAME: root
+    LOG_CHANNEL: single
+  script:
+    - npm install
+    - composer install
+    - cp .env.example .env
+    - php artisan key:generate
+    - npm run development
+    - php artisan migrate
+    - vendor/bin/phpunit
+  after_script:
+    - cat storage/logs/laravel.log
