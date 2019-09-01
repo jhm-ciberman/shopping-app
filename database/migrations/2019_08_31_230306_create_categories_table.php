@@ -19,6 +19,13 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique()->index();
             $table->timestamp('created_at')->nullable();
         });
+
+        Schema::create('category_product', function (Blueprint $table) {
+            $table->integer('product_id')->unsigned();
+            $table->integer('category_id')->unsigned();
+
+            $table->primary(['product_id', 'category_id']);
+        });
     }
 
     /**
@@ -29,5 +36,6 @@ class CreateCategoriesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('categories');
+        Schema::dropIfExists('category_product');
     }
 }
