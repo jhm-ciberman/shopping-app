@@ -13,7 +13,7 @@ class ProductTest extends TestCase
 
     public function testIndex()
     {
-        $products = factory(Product::class, 3)->create();
+        $products = factory(Product::class, 3)->create(['discount' => 10]);
 
         $response = $this->get(route('products.index'));
 

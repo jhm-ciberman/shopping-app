@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasNameSlug;
+use App\Traits\HasPrice;
 
 class Product extends Model
 {
-    use HasNameSlug;
+    use HasNameSlug, HasPrice;
     
     /**
      * The attributes that are mass assignable.
@@ -40,9 +41,9 @@ class Product extends Model
     {
         parent::boot();
 
-        // static::deleting(function($product) {
-        //     CartItem::where('product_id', $product->id)->delete();
-        // });
+        static::deleting(function($product) {
+            CartItem::where('product_id', $product->id)->delete();
+        });
     }
 
     /**
@@ -83,25 +84,5 @@ class Product extends Model
     public static function getRecent($amount = 3)
     {
         return self::latest('updated_at')->take($amount)->get();
-    }
-
-    /**
-     * Final discounted price
-     *
-     * @return float
-     */
-    public function getDiscountedPriceAttribute()
-    {
-        return  $this->price - $this->discount;
-    }
-
-    /**
-     * Returns if the product has a discount
-     *
-     * @return bool
-     */
-    public function getHasDiscountAttribute()
-    {
-        return ($this->discount != 0);
     }
 }
