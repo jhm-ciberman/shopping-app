@@ -18,11 +18,14 @@ composer install
 npm install
 
 # Configure environment variables
-# Make sure to edit your .env file with your local DB passwords
-cp .env.example .env       
+# Make sure to edit your .env file with your local DB passwords and your APP_URL
+cp .env.example .env
+
+## Generate a new APP_KEY (for encrypting cookies)
+php artisan key:generate
 
 # Build frontend in development mode
-npm run dev            
+npm run dev
 ```
 
 ## Testing
