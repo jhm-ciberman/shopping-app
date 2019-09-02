@@ -29,21 +29,6 @@ class Order extends Model
     const UPDATED_AT = null;
 
     /**
-     * Creates a new Order from the passed Cart instance
-     * 
-     * @param  App\Cart  $cart
-     * @param  App\Address  $shippingAddress 
-     * @param  App\ShippingPeriod  $shippingPeriod 
-     * @return  App\Order
-     * @throws  App\Exceptions\EmptyCartException
-     * @throws  App\Exceptions\AnonymousCartException
-     */
-    public static function fromCart(Cart $cart, Address $shippingAddress, ?ShippingPeriod $shippingPeriod = null)
-    {
-        return $cart->toOrder($shippingAddress, $shippingPeriod);
-    }
-
-    /**
      * The Order items
      * 
      * @var Illuminate\Database\Eloquent\Relations\HasMany
@@ -168,19 +153,6 @@ class Order extends Model
         return $query->with(['items' => function($query) {
             return $query->withTrashedProduct();
         }]);
-    }
-
-    /**
-     * Add all the items from the specified cart
-     * 
-     * @return void
-     */
-    public function addItemsFromCart(Cart $cart)
-    {
-        $this->items()->saveMany(
-            $cart->items
-                ->map->toOrderItem()
-        );
     }
 
 }

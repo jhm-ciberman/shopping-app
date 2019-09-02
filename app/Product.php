@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasNameSlug;
 use App\Traits\HasPrice;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasNameSlug, HasPrice;
+    use HasNameSlug, HasPrice, SoftDeletes;
     
     /**
      * The attributes that are mass assignable.

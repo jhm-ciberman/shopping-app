@@ -101,18 +101,13 @@ class CartItem extends Model
         return ($this->discount_total != 0);
     }
 
-    /**
-     * Creates an OrderItem from the current CartItem
-     * 
-     * @return  App\OrderItem
-     */
     public function toOrderItem()
     {
-        // return OrderItem::make([
-        //     'price'      => $this->product->price,
-        //     'discount'   => $this->product->discount,
-        //     'product_id' => $this->product_id,
-        //     'quantity'   => $this->quantity,
-        // ]);
+        return [
+            'price'      => $this->product->price,
+            'discount'   => $this->product->discount,
+            'product_id' => $this->product_id,
+            'quantity'   => $this->quantity,
+        ];
     }
 }

@@ -57,6 +57,19 @@ class Cart extends Model
         );
     }
 
+    public function addMany($items) 
+    {
+        if (! $cart->exists) {
+            $cart->save();
+        }
+
+        $items = collect($items)->reject(function($item) {
+            return $this->hasProductId($item->product_id);
+        });
+
+        $this->items()->createMany($items);
+    }
+
     /**
      * Find the product inside the cart
      * 
@@ -177,6 +190,11 @@ class Cart extends Model
         return $this->items->contains('product_id', $product->id);
     }
 
+    public function hasProductId($id)
+    {
+        return $this->items->contains('product_id', $id);
+    }
+
     public function scopeWithTrashedProducts($query)
     {
         return $query->with(['items' => function($query) {
@@ -197,5 +215,12 @@ class Cart extends Model
     public function checkChecksum($checksum)
     {
         return Hash::check($this->getChecksumString(), $checksum);
+    }
+
+    public function toOrder()
+    {
+        return [
+            'user_id' => $this->user_id,
+        ];
     }
 }

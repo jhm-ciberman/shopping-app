@@ -71,19 +71,6 @@ class OrderItem extends Model
     }
 
     /**
-     * Creates an CartItem from the current OrderItem
-     * 
-     * @return  App\CartItem
-     */
-    public function toCartItem()
-    {
-        return CartItem::make([
-            'product_id' => $this->product_id,
-            'quantity'   => $this->quantity,
-        ]);
-    }
-
-    /**
      * The associated order
      * 
      * @var Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -232,5 +219,13 @@ class OrderItem extends Model
     public function invalidProduct()
     {
         return ($this->product === null) || ($this->product->trashed());
+    }
+
+    public function toCartItem() 
+    {
+        return [
+            'product_id' => $this->product_id,
+            'quantity'   => $this->quantity,
+        ];
     }
 }

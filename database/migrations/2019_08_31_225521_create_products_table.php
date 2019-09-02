@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->decimal('price')->unsigned();
             $table->decimal('discount')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
