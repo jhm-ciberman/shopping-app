@@ -36,4 +36,68 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    
+     /**
+     * All the carts associated to the user (can be many)
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function carts()
+    {
+        return $this->hasMany('App\Cart');
+    }
+
+     /**
+     * The cart associated to the user, if any (can be null)
+     * 
+     * @return App\Cart
+     */
+    public function getCartAttribute()
+    {
+        return $this->carts()->latest()->first();
+    }
+
+    /**
+     * The orders dispatched by the user
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+
+    /**
+     * The addresses associated to this user
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function addresses()
+    {
+        return $this->hasMany('App\Address')->where('is_editable', '=', true);
+    }
+
+    /**
+     * Returns if the user is an admin user
+     * 
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return false;
+    }
+
+    /**
+     * Adds a new Address to this User
+     * 
+     * @param  array  $data
+     * @return \App\Address
+     */
+    public function addAddress(array $data)
+    {
+        $address = new Address($data);
+        $address->is_editable = true;
+        return $this->addresses()->save($address);
+    }
 }
