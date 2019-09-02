@@ -1,6 +1,6 @@
 # Shopping App
 
-[![coverage report](https://gitlab.com/jhm-ciberman/shopping-app/badges/master/coverage.svg)](https://gitlab.com/jhm-ciberman/shopping-app/commits/master)
+[![pipeline status](https://gitlab.com/jhm-ciberman/shopping-app/badges/master/pipeline.svg)](https://gitlab.com/jhm-ciberman/shopping-app/commits/master)
 
 Project created for the Web Programming Assignment for FASTA University, Mar del Plata, Argentina by Javier "Ciberman" Mora. 
 
