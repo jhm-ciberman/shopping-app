@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+Auth::routes();
 
 Route::resource('products', 'ProductController')->only(['index', 'show']);
