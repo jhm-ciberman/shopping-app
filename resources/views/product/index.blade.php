@@ -3,7 +3,7 @@
 @foreach($products as $product)
     <div>
         <a href="{{ route('products.show', $product) }}">{{ $product->name }}</a>
-        <p>{{ $product->discounted_price }}</p>
+        <p>{{ $product->price }}</p>
     </div>
 @endforeach
 

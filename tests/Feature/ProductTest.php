@@ -21,7 +21,7 @@ class ProductTest extends TestCase
 
         $products->each(function($product) use ($response) {
             $response->assertSee($product->name);
-            $response->assertSee($product->discounted_price);
+            $response->assertSee($product->price);
         });
     }
 
@@ -32,6 +32,6 @@ class ProductTest extends TestCase
         $this->get(route('products.show', $product))
             ->assertStatus(200)
             ->assertSee($product->name)
-            ->assertSee($product->discounted_price);
+            ->assertSee($product->price);
     }
 }
