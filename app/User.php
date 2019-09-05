@@ -37,6 +37,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * The model's attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_admin' => false,
+    ];
+
     
      /**
      * All the carts associated to the user (can be many)
@@ -76,16 +85,6 @@ class User extends Authenticatable
     public function addresses()
     {
         return $this->hasMany('App\Address')->where('is_editable', '=', true);
-    }
-
-    /**
-     * Returns if the user is an admin user
-     * 
-     * @return bool
-     */
-    public function isAdmin()
-    {
-        return false;
     }
 
     /**

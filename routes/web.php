@@ -12,6 +12,9 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+
 Auth::routes();
 
 Route::resource('products', 'ProductController')->only(['index', 'show']);
+
+Route::get('admin', 'Admin\AdminController@dashboard')->name('home');
