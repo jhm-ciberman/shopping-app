@@ -10654,3 +10654,7 @@ a.text-dark:focus {
   width: 300px;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+

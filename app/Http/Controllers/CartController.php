@@ -84,17 +84,7 @@ class CartController extends Controller
         $item = $this->cart->add($product, $quantity);
 
         return $request->input('noshow')
-            ? $this->redirectToIndex($item)
-            : $this->redirectToCartShow();
-    }
-
-    protected function redirectToPurchase()
-    {
-        return redirect()->route('cart.show');
-    }
-
-    protected function redirectToCartShow()
-    {
-        return redirect()->route('cart.show');
+            ? redirect()->route('cart.show')
+            : redirect()->route('purchase.create');
     }
 }
