@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-auto mb-2 px-md-0 col-12 col-md-6 bg-light">
-                <img class="img-fluid rounded w-100" width="500" height="600" src="https://picsum.photos/500/600?{{ random_int(1,1000) }}" alt="{{ $product->name }}">
+                <img class="img-fluid rounded w-100" width="430" height="300" src="{{ $product->mediumImage() }}" alt="{{ $product->name }}">
             </div>
 
             <div class="px-md-4 col-12 col-md-6">

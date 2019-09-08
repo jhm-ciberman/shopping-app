@@ -3,14 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use App\Traits\HasNameSlug;
 use App\Traits\HasPrice;
+use App\Traits\HasProductImages;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use HasNameSlug, HasPrice, SoftDeletes;
-    
+    use HasNameSlug, HasPrice, SoftDeletes, HasProductImages;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,7 +51,7 @@ class Product extends Model
 
     /**
      * The orders that belong to the report.
-     * 
+     *
      * @var Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function categories()
@@ -59,7 +61,7 @@ class Product extends Model
 
     /**
      * The cart items for this product
-     * 
+     *
      * @var Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function cartItems()
@@ -79,7 +81,7 @@ class Product extends Model
 
     /**
      * Get recent products
-     * 
+     *
      * @param  int  $amount
      */
     public static function getRecent($amount = 3)
