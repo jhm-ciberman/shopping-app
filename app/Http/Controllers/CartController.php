@@ -3,10 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Product;
 use Illuminate\Http\Request;
+use App\Services\CartManager;
 
 class CartController extends Controller
 {
+
+    /**
+     * The cart manager instance
+     *
+     * @var CartManager
+     */
+    private $cart;
+
+    /**
+     * Creates a new controller instance
+     *
+     * @param  CartManager  $cart
+     */
+    public function __construct(CartManager $cart)
+    {
+        $this->middleware('auth')->only('confirm');
+
+        $this->cart = $cart;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -81,5 +103,37 @@ class CartController extends Controller
     public function destroy(Cart $cart)
     {
         //
+    }
+
+    public function addAndPurchase(Product $product)
+    {
+        $this->addItemFromRequest($product);
+
+        return redirect()->route('cart.show');
+    }
+
+    public function add(Request $request, Product $product)
+    {
+        $request->validate([
+            'quantity' => 'nullable|numeric',
+        ]);
+
+        $quantity = $request->input('quantity', $product->amount_min);
+
+        $item = $this->cart->add($product, $quantity);
+
+        return $request->input('noshow')
+            ? $this->redirectToIndex($item)
+            : $this->redirectToCartShow();
+    }
+
+    protected function redirectToPurchase()
+    {
+        return redirect()->route('cart.show');
+    }
+
+    protected function redirectToCartShow()
+    {
+        return redirect()->route('cart.show');
     }
 }
