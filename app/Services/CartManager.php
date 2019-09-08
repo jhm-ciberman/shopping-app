@@ -2,30 +2,28 @@
 
 namespace App\Services;
 
-use App\CartItem;
 use App\User;
 use App\Cart;
+use App\Order;
+use App\Address;
 use App\Product;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Traits\ForwardsCalls;
-use Session;
-use Auth;
 
 class CartManager
 {
     use ForwardsCalls;
 
     /**
-     * @var string The key in session that holds the cart id 
+     * @var string The key in session that holds the cart id
      */
     protected $sessionKey = 'cart_id';
 
-    /** 
-     * @var Cart The Cart model instance 
+    /**
+     * @var Cart The Cart model instance
      */
     protected $cart;
 
-    /** 
+    /**
      * @var User The user model
      */
     protected $user;
@@ -42,7 +40,7 @@ class CartManager
 
     /**
      * Restores the last cart used by the user, or stored in the session
-     * 
+     *
      * @return Cart | null
      */
     protected function restoreCart()
@@ -58,7 +56,7 @@ class CartManager
 
     /**
      * Finds the cart with the specified id
-     * 
+     *
      * @param  int  $id
      * @return Cart | null
      */
@@ -69,7 +67,7 @@ class CartManager
 
     /**
      * Completely destroys the cart: removes all related models (cart, item, etc) from the DB
-     * 
+     *
      * @return void
      */
     public function destroy()
@@ -80,7 +78,7 @@ class CartManager
 
     /**
      * Forget the cart for the session, but keep it
-     * 
+     *
      * @return void
      */
     public function forget()
@@ -102,7 +100,7 @@ class CartManager
 
     /**
      * Creates a new cart model and saves it's id in the session
-     * 
+     *
      * @return Cart
      */
     protected function createCart()
@@ -116,7 +114,7 @@ class CartManager
 
     /**
      * Creates a new cart
-     * 
+     *
      * @return Cart
      */
     protected function newCart()
@@ -127,7 +125,7 @@ class CartManager
     /**
      * Sets the current cart, and asociate it with the logged
      * user and/or store it in the current session
-     * 
+     *
      * @param  Cart  $cart
      * @return self
      */
@@ -136,7 +134,7 @@ class CartManager
         $this->cart = $cart;
 
         $this->vinculateUserCart();
-        
+
         $this->putInSession();
 
         return $this;
@@ -144,7 +142,7 @@ class CartManager
 
     /**
      * Vinculates the current attached user and the current cart together
-     * 
+     *
      * @return void
      */
     protected function vinculateUserCart()
@@ -159,8 +157,8 @@ class CartManager
     }
 
     /**
-     * Sets the user 
-     * 
+     * Sets the user
+     *
      * @param  \App\User  $user
      * @return self
      */
@@ -174,8 +172,8 @@ class CartManager
     }
 
     /**
-     * Sets the user 
-     * 
+     * Sets the user
+     *
      * @param  \App\User  $user
      * @return self
      */
@@ -186,7 +184,7 @@ class CartManager
 
     /**
      * puts the current cart id in the session
-     * 
+     *
      * @return void
      */
     private function putInSession()
@@ -198,7 +196,7 @@ class CartManager
 
     /**
      * Add a product to the cart
-     * 
+     *
      * @param  $product
      * @param  $quantity
      * @return \App\Product
@@ -209,13 +207,13 @@ class CartManager
 
         $this->putInSession();
         $this->vinculateUserCart();
-        
+
         return $product;
     }
 
     /**
      * Add products from an order
-     * 
+     *
      * @param  $order
      * @return self
      */
@@ -229,14 +227,14 @@ class CartManager
 
         $this->putInSession();
         $this->vinculateUserCart();
-        
+
         return $this;
     }
-    
+
     /**
      * Creates a new Order from the current Cart instance
-     * 
-     * @param  App\Address  $shippingAddress 
+     *
+     * @param  App\Address  $shippingAddress
      * @param  App\ShippingPeriod  $shippingPeriod
      * @return  App\Order
      * @throws  App\Exceptions\EmptyCartException
@@ -261,7 +259,7 @@ class CartManager
 
     /**
      * Removes a product from the cart
-     * 
+     *
      * @param  $productOrItem
      * @return bool
      */

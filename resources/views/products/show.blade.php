@@ -8,7 +8,7 @@
         </div>
 
         <div class="px-md-4 col-12 col-md-6">
-            <div class="card border-0 shadow-sm border-0">
+            <div class="card border-0">
                 <div class="card-body">
                     <div class="text-muted">SKU: {{ $product->sku }}</div>
                     <h1 class="card-title" href="{{ route('products.show', $product) }}">{{ $product->name }}</h1>

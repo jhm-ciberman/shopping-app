@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\CartManager;
 use Auth;
 use App\Address;
-use App\Order;
 use App\Product;
-use App\ShippingPeriod;
 use App\Http\Requests\AddressForm;
 use App\Http\Requests\PurchaseForm;
 use App\Notifications\OrderConfirmed;
@@ -70,7 +67,7 @@ class PurchaseController extends Controller
 
         $cart->user_id = Auth::id();
 
-        $order = Order::fromCart($cart, $address);
+        $order = $cartManager->createOrder($address);
 
         Log::info('New purchase order created', ['order_id' => $order->id, 'user_id' => $order->user_id]);
 

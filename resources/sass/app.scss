@@ -23,3 +23,7 @@
     cursor: pointer;
 }
 
+.card {
+    @extend .border-0, .shadow-sm;
+}
+

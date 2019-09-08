@@ -11,7 +11,10 @@
                 </div>
             @endforeach
         </div>
-        {{ $products->links() }}
+        <div class="d-flex justify-content-center my-5">
+                {{ $products->links() }}
+        </div>
+
     </div>
 </div>
 @endsection

@@ -31,17 +31,6 @@
         <div class="quantity clearfix">
             {{ ReadableUnit::quantity($item->quantity) }} {{ __('Units') }}
         </div>
-        @isset($editable)
-            <button type="submit"
-                    class="btn ml-2 btn-outline-secondary btn-sm"
-                    aria-label="{{ __('Edit quantity') }}"
-                    data-toggle="modal"
-                    data-target="#edit-quantity-modal"
-                    data-url="{{ route('cart.ajax.edit', $item->product) }}">
-
-                <i class="material-icons">edit</i>
-            </button>
-        @endisset
     </td>
 
     <td class="cart-product-subtotal">

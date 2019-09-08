@@ -69,5 +69,10 @@
             </div>
         </div>
     </div>
+    <div class="row p-5 justify-content-center">
+        <div class="col-auto">
+            <a href="{{ route('register') }}" class="btn btn-link text-center">{{ __('Create a new account') }}</a>
+        </div>
+    </div>
 </div>
 @endsection
