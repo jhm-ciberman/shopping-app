@@ -1,5 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito:200,400&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 // Variables
 @import 'variables';
@@ -12,4 +13,8 @@
     @extend .font-weight-lighter;
     font-size: 3em;
     color: $success;
+}
+
+.cart-dropdown {
+    width: 300px;
 }

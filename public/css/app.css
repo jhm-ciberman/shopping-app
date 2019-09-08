@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito:200,400&display=swap);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito:200,400&display=swap);@import url(https://fonts.googleapis.com/icon?family=Material+Icons);@charset "UTF-8";
 
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
@@ -10648,5 +10648,9 @@ a.text-dark:focus {
 .text-price-tag {
   font-size: 3em;
   color: #38c172;
+}
+
+.cart-dropdown {
+  width: 300px;
 }
 
