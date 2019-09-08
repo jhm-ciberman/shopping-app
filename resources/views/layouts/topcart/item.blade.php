@@ -6,7 +6,7 @@
             <span class="top-cart-item-price">
                 @include('products.partials.price', ['product' => $item->product ])
             </span>
-            <p class="top-cart-item-quantity mb-0">{{ ReadableUnit::quantity($item->quantity) }} Units</p>
+            <p class="top-cart-item-quantity mb-0">{{ ReadableUnit::quantity($item->quantity) }} {{__('Units')}}</p>
         </div>
     </div>
 </div>
