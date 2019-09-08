@@ -16,7 +16,12 @@ Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::resource('products', 'ProductController')->only(['index', 'show']);
-Route::post('cart/{product}', 'CartController@add')->name('cart.add');
 
+// Cart
+Route::post('cart/{product}', 'CartController@add')->name('cart.add');
+Route::get('cart', 'CartController@show')->name('cart.show');
+Route::get('cart/{product}/ajax/edit', 'CartController@ajaxEditForm')->name('cart.ajax.edit');
+Route::patch('cart/{product}', 'CartController@update')->name('cart.update');
+Route::delete('cart/{product}', 'CartController@remove')->name('cart.remove');
 
 Route::get('admin', 'Admin\AdminController@dashboard')->name('home');

@@ -1,16 +1,12 @@
-<div class="top-cart-items">
-    <div class="top-cart-item clearfix">
-        <div class="top-cart-item-image">
-            <a href="{{ route('products.show', $item->product) }}">
-                <img src="{{ $item->product->thumbImage() }}" alt="{{ $item->product->name }}">
-            </a>
-        </div>
-        <div class="top-cart-item-desc">
-            <a href="{{ route('products.show', $item->product) }}">{{ $item->product->name }}</a>
+<div class="list-group-item">
+    <div class="media">
+        <img width="64" height="64" class="mr-3" src="{{ $item->product->thumbImage() }}" alt="{{ $item->product->name }}">
+        <div class="media-body">
+            <a href="{{ route('products.show', $item->product) }}" class="stretched-link">{{ $item->product->name }}</a>
             <span class="top-cart-item-price">
                 @include('products.partials.price', ['product' => $item->product ])
             </span>
-            <span class="top-cart-item-quantity">{{ ReadableUnit::quantity($item->quantity) }}</span>
+            <p class="top-cart-item-quantity mb-0">{{ ReadableUnit::quantity($item->quantity) }} Units</p>
         </div>
     </div>
 </div>

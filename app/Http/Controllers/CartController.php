@@ -6,6 +6,7 @@ use App\Cart;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Services\CartManager;
+use Session;
 
 class CartController extends Controller
 {
@@ -29,85 +30,45 @@ class CartController extends Controller
         $this->cart = $cart;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function show()
     {
-        //
+        if ($this->cart->isEmpty()) {
+            return view('cart.empty');
+        }
+
+        return view('cart.show', [
+            'cart'            => $this->cart,
+            'recentProducts'  => Product::getRecent(10),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    protected function getShippingDate()
     {
-        //
+        return transform($this->getShippingPeriods(), function($periods) {
+            return $periods->first()->resolveDate();
+        });
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    protected function getShippingPeriods()
     {
-        //
+        return transform(Auth::user(), function($user) {
+            return ShippingPeriod::getShippingPeriods($user);
+        });
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cart $cart)
+    public function ajaxEditForm(Product $product, Request $request)
     {
-        //
+        $item = $this->cart->findItem($product);
+
+        return (!$item)
+            ? view('cart.ajax.404')
+            : view('cart.ajax.edit', ['item' => $item, 'product' => $item->product]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cart $cart)
+    public function remove(Product $product, Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Cart $cart)
-    {
-        //
-    }
-
-    public function addAndPurchase(Product $product)
-    {
-        $this->addItemFromRequest($product);
+        $this->cart->remove($product);
 
         return redirect()->route('cart.show');
     }

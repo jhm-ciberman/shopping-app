@@ -27,7 +27,7 @@
                             </div>
                             <div class="row">
                                 <input type="submit" class="col m-2 btn btn-lg btn-primary" value="Buy now">
-                                <input type="submit" formaction="{{ route('cart.add', $product) }}" class="col m-2 btn btn-lg btn-outline-primary" value="Add to cart">
+                                <input type="submit" formaction="{{ route('cart.add', ['product' => $product, 'noshow' => true]) }}" class="col m-2 btn btn-lg btn-outline-primary" value="Add to cart">
                             </div>
                         </form>
                     </div>
