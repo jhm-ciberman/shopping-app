@@ -10648,8 +10648,12 @@ a.text-dark:focus {
 }
 
 .text-price-tag {
-  font-size: 3em;
+  font-size: 3rem;
   color: #38c172;
+}
+
+.text-price-tag del {
+  font-size: 1.3rem;
 }
 
 .cart-dropdown {

@@ -11,8 +11,11 @@
 
 .text-price-tag {
     @extend .font-weight-lighter;
-    font-size: 3em;
+    font-size: 3rem;
     color: $success;
+    del {
+        font-size: 1.3rem;
+    }
 }
 
 .cart-dropdown {

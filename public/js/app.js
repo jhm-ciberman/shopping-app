@@ -1887,7 +1887,8 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     initialValue: String,
     initialWithoutNumber: Boolean,
-    invalid: Boolean
+    invalid: Boolean,
+    withoutNumberText: String
   },
   data: function data() {
     return {
@@ -37326,7 +37327,7 @@ var render = function() {
             staticClass: "ml-2 form-check-label",
             attrs: { for: "without_number" }
           },
-          [_vm._v("Sin número")]
+          [_vm._v(_vm._s(_vm.withoutNumberText))]
         )
       ])
     ])

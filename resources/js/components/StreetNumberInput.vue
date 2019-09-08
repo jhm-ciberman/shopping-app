@@ -4,7 +4,7 @@
         <div class="input-group-append">
             <div class="input-group-text">
                 <input type="checkbox" id="without_number" v-model="withoutNumber">
-                <label class="ml-2 form-check-label" for="without_number">Sin número</label>
+                <label class="ml-2 form-check-label" for="without_number">{{ withoutNumberText }}</label>
             </div>
         </div>
     </div>
@@ -16,6 +16,7 @@ export default {
         initialValue: String,
         initialWithoutNumber: Boolean,
         invalid: Boolean,
+        withoutNumberText: String,
     },
     data: function() {
         return {

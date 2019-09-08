@@ -52,15 +52,12 @@
         </div>
         <div class="row mt-5">
             <div class="col">
-                <div class="alert alert-info" role="alert">
-                    <i class="icon-info"></i>
-                    {{ __('You can pay for your purchase when you receive the products') }}
+                <div class="alert alert-info align-middle" role="alert">
+                    <i class="material-icons mr-3 float-left">info</i>
+                    <div>{{ __('You can enter your payment info in the next screen') }}</div>
                 </div>
             </div>
         </div>
-
-
-
 
         <div class="mt-3 pt-3">
             <button type="submit" class="d-block mx-auto btn btn-lg btn-success text-center" style="width: 400px">{{ __('Confirm purchase') }}</button>

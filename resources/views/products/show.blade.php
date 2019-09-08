@@ -10,10 +10,21 @@
         <div class="px-md-4 col-12 col-md-6">
             <div class="card border-0">
                 <div class="card-body">
-                    <div class="text-muted">SKU: {{ $product->sku }}</div>
-                    <h1 class="card-title" href="{{ route('products.show', $product) }}">{{ $product->name }}</h1>
-                    <p class="text-price-tag">{{ ReadableUnit::money($product->discounted_price) }}</p>
+                    <div class="text-price-tag mb-3">
+                        <span class="text-success">
+                            {{ ReadableUnit::money($product->discounted_price) }}
+                        </span>
+                        @if ($product->has_discount)
+                            <del class="text-muted">{{ ReadableUnit::money($product->price) }}</del>
+                        @endif
+                    </div>
+
+
+
+                    <h1 class="card-title mb-3" href="{{ route('products.show', $product) }}">{{ $product->name }}</h1>
+
                     <p class="card-text">{{ $product->description }}</p>
+                    <div class="text-muted">SKU: {{ $product->sku }}</div>
                 </div>
 
                 <div class="card-footer">
