@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <resource-index 
-            endpoint-url="{{ route('admin.api.users.index') }}">
+            endpointUrl="{{ route('admin.api.products.users') }}">
         </resource-index>
     </div>
 @endsection

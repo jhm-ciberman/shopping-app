@@ -31,4 +31,12 @@ Route::get('purchase/success', 'PurchaseController@success')->name('purchase.suc
 Route::get('purchase/error', 'PurchaseController@error')->name('purchase.error');
 Route::resource('purchase', 'PurchaseController')->only(['store', 'create']);
 
-Route::get('admin', 'Admin\AdminController@dashboard')->name('home');
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
+
+    Route::get('/', 'AdminController@dashboard')->name('home');
+
+    Route::prefix('api')->name('api.')->group(function() {
+        Route::resource('users', 'UserController');
+
+    });
+});
