@@ -5,17 +5,29 @@ namespace App\Http\Controllers\Admin;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Admin\ProductResource;
 
 class ProductController extends Controller
 {
+    protected $resource;
+    
+    public function __construct() 
+    {
+        $this->resource = new ProductResource();
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->expectsJson()) {
+            return $this->resource->jsonIndexResponse();
+        }
+
+        return $this->resource->indexView();
     }
 
     /**

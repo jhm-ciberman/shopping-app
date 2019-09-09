@@ -5,25 +5,31 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Admin\UserResource;
 
 class UserController extends Controller
 {
-    protected function attributes() {
-        return [
-            'id',
-            'name',
-            'email',
-        ];
+
+    protected $resource;
+    
+    public function __construct() 
+    {
+        $this->resource = new UserResource();
     }
+
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return User::select($this->attributes())->paginate();
+        if ($request->expectsJson()) {
+            return $this->resource->jsonIndexResponse();
+        }
+
+        return $this->resource->indexView();
     }
 
     /**
@@ -33,7 +39,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -55,7 +61,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('admin.users.show', $user);
     }
 
     /**
@@ -66,7 +72,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', $user);
     }
 
     /**

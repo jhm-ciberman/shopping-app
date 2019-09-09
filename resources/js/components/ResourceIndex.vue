@@ -1,12 +1,15 @@
 <template>
   <div>
-        <resource-index-table
-            v-if="resourcesData"
+
+        <div class="card">
+            <resource-index-table
             :resources="resourcesData"
-            :column-names="columnNames"
+            :column-names="columns"
             @resource-deleted="deleteResource"
             >
-        </resource-index-table>
+            </resource-index-table>
+        </div>
+        
 
         <div class="m-4">
             <pagination :data="responseData" align="center" @pagination-change-page="getResults"></pagination>
@@ -18,16 +21,12 @@
 <script>
 export default {
     props: {
+        columns: Array,
         endpointUrl: String,
     },
 
     data: function() {
         return {
-            columnNames: [
-                {key: 'id', name:'Id'},
-                {key: 'name', name:'Name'},
-                {key: 'email', name:'Email'},
-            ],
             responseData: {},
         }
     },
@@ -70,7 +69,3 @@ export default {
 
 }
 </script>
-
-<style>
-
-</style>

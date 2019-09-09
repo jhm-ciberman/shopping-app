@@ -20,8 +20,6 @@ Route::resource('products', 'ProductController')->only(['index', 'show']);
 // Cart
 Route::post('cart/{product}', 'CartController@add')->name('cart.add');
 Route::get('cart', 'CartController@show')->name('cart.show');
-Route::get('cart/{product}/ajax/edit', 'CartController@ajaxEditForm')->name('cart.ajax.edit');
-Route::patch('cart/{product}', 'CartController@update')->name('cart.update');
 Route::delete('cart/{product}', 'CartController@remove')->name('cart.remove');
 
 // Orders
@@ -34,9 +32,6 @@ Route::resource('purchase', 'PurchaseController')->only(['store', 'create']);
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
 
     Route::get('/', 'AdminController@dashboard')->name('home');
-
-    Route::prefix('api')->name('api.')->group(function() {
-        Route::resource('users', 'UserController');
-
-    });
+    Route::resource('users', 'UserController');
+    Route::resource('products', 'ProductController');
 });

@@ -21,7 +21,11 @@
 </head>
 <body>
     <div id="app">
-        @include('layouts.navbar')
+        @if (request()->route()->named('admin.*'))
+            @include('layouts.navbar.admin')
+        @else
+            @include('layouts.navbar.app')
+        @endif
 
         <main class="py-4">
             <div class="container">
