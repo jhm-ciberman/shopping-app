@@ -10,11 +10,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ Route::currentRouteName() === 'admin.products.index' ?: 'active' }}">
+                <li class="nav-item {{ Route::currentRouteName() === 'admin.products.index' ? 'active' : ''}}">
                     <a class="nav-link" href="{{ route('admin.products.index')}}">Products</a>
                 </li>
-                <li class="nav-item {{ Route::currentRouteName() === 'admin.users.index' ?: 'active' }}">
+                <li class="nav-item {{ Route::currentRouteName() === 'admin.users.index' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('admin.users.index')}}">Users</a>
+                </li>
+                <li class="nav-item {{ Route::currentRouteName() === 'admin.categories.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin.categories.index')}}">Categories</a>
                 </li>
             </ul>
 

@@ -5,17 +5,30 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Admin\CategoryResource;
 
 class CategoryController extends Controller
 {
+
+    protected $resource;
+    
+    public function __construct() 
+    {
+        $this->resource = new CategoryResource();
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->expectsJson()) {
+            return $this->resource->jsonIndexResponse();
+        }
+
+        return $this->resource->indexView();
     }
 
     /**
@@ -58,7 +71,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return $this->resource->editView()->with('category', $category);
     }
 
     /**
@@ -81,6 +94,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
     }
 }

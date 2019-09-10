@@ -5,7 +5,8 @@
             <resource-index-table
             :resources="resourcesData"
             :column-names="columns"
-            @resource-deleted="deleteResource"
+            @button-delete-pressed="deleteResource"
+            @button-edit-pressed="editResource"
             >
             </resource-index-table>
         </div>
@@ -48,6 +49,10 @@ export default {
                 console.log(response.data);
                 this.responseData = response.data;
             });
+        },
+
+        editResource(resource, index) {
+            window.location = this.endpointUrl + "/" + resource.id + "/edit";
         },
 
         deleteResource(resource, index) {

@@ -31,7 +31,8 @@ Route::resource('purchase', 'PurchaseController')->only(['store', 'create']);
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
 
-    Route::get('/', 'AdminController@dashboard')->name('home');
+    Route::get('/', 'AdminController@dashboard')->name('dashboard');
     Route::resource('users', 'UserController');
     Route::resource('products', 'ProductController');
+    Route::resource('categories', 'CategoryController');
 });

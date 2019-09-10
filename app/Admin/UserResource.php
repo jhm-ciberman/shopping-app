@@ -6,6 +6,7 @@ use App\User;
 
 class UserResource extends Resource
 {
+    protected $viewName = 'users';
 
     public function columns() 
     {
@@ -16,19 +17,9 @@ class UserResource extends Resource
         ];
     }
 
-    public function endpoint() 
-    {
-        return route('admin.users.index');
-    }
-
     public function createIndexQuery() 
     {
         return User::query();
-    }
-
-    public function createView()
-    {
-        return view('admin.users.create');
     }
 
 }

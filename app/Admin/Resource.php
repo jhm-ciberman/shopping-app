@@ -4,11 +4,26 @@ namespace App\Admin;
 
 abstract class Resource 
 {
+    protected $viewName = '';
+
     public abstract function columns();
 
-    public abstract function endpoint();
-
     public abstract function createIndexQuery();
+
+    public function endpoint() 
+    {
+        return route('admin.'.$this->viewName.'.index');
+    }
+
+    public function createView()
+    {
+        return view('admin.'.$this->viewName.'.create');
+    }
+
+    public function editView() 
+    {
+        return view('admin.'.$this->viewName.'.edit');
+    }
 
     public function indexView() 
     {
@@ -38,6 +53,4 @@ abstract class Resource
             ->select($attributeNames)
             ->paginate();
     }
-
-    public abstract function createView();
 }

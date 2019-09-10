@@ -2,21 +2,27 @@
 
     <table class="table my-0 table-hover">
         <thead>
-            <tr>
+            <tr class="px-2">
                 <th v-for="column in columnNames" :key="column.key">
                     {{ column.name }}
                 </th>
-                <th></th>
+                <th class="col-actions"></th>
+                <th class="col-actions"></th>
             </tr>
             
         </thead>
         <tbody>
-            <tr v-for="(resource, index) in resources" :key="resource.id">
+            <tr v-for="(resource, index) in resources" :key="resource.id" class="px-2">
                 <td v-for="column in columnNames" :key="column.key">
                     {{ resource[column.key] }}
                 </td>
-                <td>
-                    <button @click="$emit('resource-deleted', resource, index)" type="submit" class="btn btn-outline-danger btn-sm" aria-label="Remove Product">
+                <td class="col-actions">
+                    <button @click="$emit('button-edit-pressed', resource, index)" class="btn d-inline-block btn-outline-secondary btn-sm" aria-label="Edit Product">
+                        <i class="material-icons">edit</i>
+                    </button>
+                </td>
+                <td class="col-actions">
+                    <button @click="$emit('button-delete-pressed', resource, index)" class="btn d-inline-block btn-outline-danger btn-sm" aria-label="Remove Product">
                         <i class="material-icons">delete</i>
                     </button>
                 </td>
@@ -36,3 +42,13 @@ export default {
     },
 }
 </script>
+
+<style lang="scss">
+    .col-actions {
+        width: 2.9rem;
+        i {
+            font-size: 1.2rem;
+            line-height: inherit;
+        }
+    }
+</style>

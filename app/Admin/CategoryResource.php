@@ -2,24 +2,22 @@
 
 namespace App\Admin;
 
-use App\Product;
+use App\Category;
 
-class ProductResource extends Resource
+class CategoryResource extends Resource
 {
-    protected $viewName = 'products';
-
+    protected $viewName = 'categories';
+    
     public function columns() 
     {
         return [
             'id'    => 'Id',
             'name'  => 'Name',
-            'description' => 'Description',
         ];
     }
 
     public function createIndexQuery() 
     {
-        return Product::query();
+        return Category::query();
     }
-
 }

@@ -52,7 +52,7 @@ class CreateUser extends Command
 
         $this->validator($data)->validate();
 
-        $this->create($data);
+        $this->create(array_merge($data, ['is_admin' => true]));
     }
 
     protected function validator(array $data)
