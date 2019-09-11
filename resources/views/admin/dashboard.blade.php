@@ -4,7 +4,7 @@
     <h1>Admin panel</h1>
     <div class="row">
         <div class="col">
-            @component('admin.card')
+            @component('admin.components.card')
                 <h2>Products</h2>
                 <div class="text-big">{{ \App\Product::count() }}</div>
                 @slot('footer')
@@ -13,7 +13,7 @@
             @endcomponent
         </div>
         <div class="col">
-            @component('admin.card')
+            @component('admin.components.card')
                 <h2>Users</h2>
                 <div class="text-big">{{ \App\User::count() }}</div>
                 @slot('footer')
@@ -22,7 +22,7 @@
             @endcomponent
         </div>
         <div class="col">
-            @component('admin.card')
+            @component('admin.components.card')
                 <h2>Orders</h2>
                 <div class="text-big">{{ \App\Order::count() }}</div>
                 @slot('footer')

@@ -11,25 +11,19 @@
             <div class="card-body">
 
                 @foreach($fields as $field)
-                    <div class="form-group row">
-                        <label for="{{ $field->attribute }}" class="col-sm-3 col-form-label">
-                            {{ $field->name }}
-                        </label>
-                        <div class="col-sm-9">
+                    @component('admin.components.field-container', ['field' => $field])
+                        @include('admin.fields.'.$field->fieldName(), [
+                            'name' => $field->attribute,
+                            'label' => $field->name,
+                            'value' => $model->{$field->attribute},
+                        ])
 
-                            @include('admin.fields.'.$field->fieldName(), [
-                                'name' => $field->attribute,
-                                'label' => $field->name,
-                                'value' => $model->{$field->attribute},
-                            ])
-
-                            @if ($errors->has($field->attribute))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first($field->attribute) }}
-                                </div>
-                            @endif
-                        </div>
-                    </div>
+                        @if ($errors->has($field->attribute))
+                            <div class="invalid-feedback">
+                                {{ $errors->first($field->attribute) }}
+                            </div>
+                        @endif
+                    @endcomponent
                 @endforeach
 
             </div>

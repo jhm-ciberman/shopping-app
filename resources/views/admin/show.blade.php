@@ -30,19 +30,12 @@
 
     <div class="card">
         <div class="card-body">
-
             @foreach($fields as $field)
-
-                <div class="form-group row">
-                    <label for="{{ $field->attribute }}" class="col-sm-3 col-form-label">
-                        {{ $field->name }}
-                    </label>
-                    <div class="col-sm-9">
-                        {{ $field->resolve($model) }}
-                    </div>
-                </div>
-
+                @component('admin.components.field-container', ['field' => $field])
+                    {{ $field->resolve($model) }}
+                @endcomponent
             @endforeach
+        </div>
     </div>
 
 @endsection
