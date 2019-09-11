@@ -39,3 +39,12 @@
     }
 }
 
+.admin-card {
+    @extend .border-0, .shadow-sm;
+    background-color: $white;
+    color: $dark;
+    .text-big {
+        font-size: 2em;
+
+    }
+}
