@@ -2,98 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Category;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Admin\CategoryResource;
 
-class CategoryController extends Controller
+class CategoryController extends ResourceController
 {
-
-    protected $resource;
-    
-    public function __construct() 
+    protected function makeResource()
     {
-        $this->resource = new CategoryResource();
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        if ($request->expectsJson()) {
-            return $this->resource->jsonIndexResponse();
-        }
-
-        return $this->resource->indexView();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        return $this->resource->editView()->with('category', $category);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Category $category)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category)
-    {
-        $category->delete();
+        return new CategoryResource();
     }
 }

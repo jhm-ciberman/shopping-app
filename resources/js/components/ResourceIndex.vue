@@ -10,12 +10,12 @@
             >
             </resource-index-table>
         </div>
-        
+
 
         <div class="m-4">
             <pagination :data="responseData" align="center" @pagination-change-page="getResults"></pagination>
         </div>
-        
+
   </div>
 </template>
 
@@ -37,13 +37,13 @@ export default {
             return this.responseData ? this.responseData.data : null;
         }
     },
-    
+
     created: function() {
         this.getResults();
     },
 
     methods: {
-        
+
         getResults(page = 1) {
             axios.get(this.endpointUrl + '?page=' + page).then(response => {
                 console.log(response.data);
@@ -52,14 +52,14 @@ export default {
         },
 
         editResource(resource, index) {
-            window.location = this.endpointUrl + "/" + resource.id + "/edit";
+            window.location = this.endpointUrl + "/" + resource.id;
         },
 
         deleteResource(resource, index) {
             if (!this.resourcesData) {
                 return;
             }
-            
+
             const id = resource['id'];
 
             if (id === undefined) {

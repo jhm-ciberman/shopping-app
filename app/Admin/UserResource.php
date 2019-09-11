@@ -2,24 +2,28 @@
 
 namespace App\Admin;
 
+use App\Admin\Fields\ID;
+use App\Admin\Fields\Text;
+use App\Admin\Fields\Boolean;
 use App\User;
 
 class UserResource extends Resource
 {
-    protected $viewName = 'users';
+    public $viewName = 'users';
 
-    public function columns() 
+    public $model = User::class;
+
+    public $name = "User";
+
+    public $title = 'name';
+
+    public function fields()
     {
         return [
-            'id'    => 'Id',
-            'name'  => 'Name',
-            'email' => 'Email',
+            ID::make(),
+            Text::make('Name', 'name'),
+            Text::make('Email', 'email'),
+            Boolean::make('Is admin', 'is_admin'),
         ];
     }
-
-    public function createIndexQuery() 
-    {
-        return User::query();
-    }
-
 }

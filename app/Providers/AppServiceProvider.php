@@ -27,12 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Route::bind('product', function($value) {
-            return \App\Product::where('id', $value)->orWhere('slug', $value)->first();
-        });
-
-        Route::bind('category', function($value) {
-            return \App\Category::where('id', $value)->orWhere('slug', $value)->first();
-        });//
+        //
     }
 }

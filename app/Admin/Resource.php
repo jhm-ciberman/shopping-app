@@ -2,55 +2,71 @@
 
 namespace App\Admin;
 
-abstract class Resource 
+abstract class Resource
 {
-    protected $viewName = '';
+    public $viewName = '';
 
-    public abstract function columns();
+    public $model;
 
-    public abstract function createIndexQuery();
+    public $name;
 
-    public function endpoint() 
+    /**
+     * The single value that should be used to represent the resource when being displayed.
+     *
+     * @var string
+     */
+    public $title = 'id';
+
+    public function fields()
     {
-        return route('admin.'.$this->viewName.'.index');
+        return [];
     }
 
-    public function createView()
+    public function newQuery()
     {
-        return view('admin.'.$this->viewName.'.create');
+        return $this->newModel()->query();
     }
 
-    public function editView() 
+    public function createIndexQuery()
     {
-        return view('admin.'.$this->viewName.'.edit');
+        return $this->newQuery()->orderBy('id', 'desc');
     }
 
-    public function indexView() 
+    public function createFindQuery($id)
     {
-        return view('admin.index', [
-            'endpoint' => $this->endpoint(),
-            'columns' => $this->getColumnData(),
-        ]);
+        return $this->newQuery()->where('id', $id);
     }
 
-    protected function getColumnData()
+    public function newModel()
     {
-        return collect($this->columns())
-            ->map(function($value, $key) {
-                return [
-                    'key' => $key,
-                    'name' => $value
-                ];
-            })
-            ->values();
+        return new $this->model;
     }
 
-    public function jsonIndexResponse()
+    public function indexFields()
     {
-        $attributeNames = collect($this->columns())->keys()->toArray();
+        return $this->filterFields('showOnIndex');
+    }
 
-        return $this->createIndexQuery()
-            ->select($attributeNames)
-            ->paginate();
+    public function detailFields()
+    {
+        return $this->filterFields('showOnDetail');
+    }
+
+    public function editFields()
+    {
+        return $this->filterFields('showOnUpdate');
+    }
+
+    public function createFields()
+    {
+        return $this->filterFields('showOnCreation');
+    }
+
+    protected function filterFields($attr)
+    {
+        return collect($this->fields())
+            ->filter(function($field) use ($attr) {
+                return $field->{$attr};
+            });
     }
 }

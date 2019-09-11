@@ -30,3 +30,12 @@
     @extend .border-0, .shadow-sm;
 }
 
+// Admin panel
+.edit-button {
+    font-size: 1em;
+    i {
+        font-size: inherit;
+        vertical-align: middle;
+    }
+}
+
