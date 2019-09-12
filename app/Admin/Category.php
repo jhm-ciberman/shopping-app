@@ -8,8 +8,6 @@ use App\Admin\Core\Resource;
 
 class Category extends Resource
 {
-    public $viewName = 'categories';
-
     public static $model = 'App\Category';
 
     public $name = "Category";

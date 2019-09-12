@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         Admin::resources([
             \App\Admin\Product::class,
             \App\Admin\Category::class,
+            \App\Admin\Order::class,
             \App\Admin\User::class,
         ]);
     }

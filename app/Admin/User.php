@@ -9,8 +9,6 @@ use App\Admin\Core\Resource;
 
 class User extends Resource
 {
-    public $viewName = 'users';
-
     public static $model = 'App\User';
 
     public $title = 'name';

@@ -9,8 +9,6 @@ abstract class Resource
 {
     use DelegatesToResource;
 
-    public $viewName = '';
-
     /**
      * The model name
      *
