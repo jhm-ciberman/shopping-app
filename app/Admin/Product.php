@@ -2,16 +2,16 @@
 
 namespace App\Admin;
 
-use App\Product;
 use App\Admin\Fields\ID;
 use App\Admin\Fields\Text;
 use App\Admin\Fields\Textarea;
+use App\Admin\Core\Resource;
 
-class ProductResource extends Resource
+class Product extends Resource
 {
     public $viewName = 'products';
 
-    public $model = Product::class;
+    public static $model = 'App\Product';
 
     public $name = "Product";
 

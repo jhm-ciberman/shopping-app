@@ -28,11 +28,3 @@ Route::post('purchase/address', 'PurchaseController@addressStore')->name('purcha
 Route::get('purchase/success', 'PurchaseController@success')->name('purchase.success');
 Route::get('purchase/error', 'PurchaseController@error')->name('purchase.error');
 Route::resource('purchase', 'PurchaseController')->only(['store', 'create']);
-
-Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
-
-    Route::get('/', 'AdminController@dashboard')->name('dashboard');
-    Route::resource('users', 'UserController');
-    Route::resource('products', 'ProductController');
-    Route::resource('categories', 'CategoryController');
-});

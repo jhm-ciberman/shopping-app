@@ -10,15 +10,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ Route::currentRouteName() === 'admin.products.index' ? 'active' : ''}}">
-                    <a class="nav-link" href="{{ route('admin.products.index')}}">Products</a>
-                </li>
-                <li class="nav-item {{ Route::currentRouteName() === 'admin.users.index' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.users.index')}}">Users</a>
-                </li>
-                <li class="nav-item {{ Route::currentRouteName() === 'admin.categories.index' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.categories.index')}}">Categories</a>
-                </li>
+
+                @foreach(Admin::getResources() as $resource)
+                    <li class="nav-item {{ url()->current() === 'admin/'.$resource::uriKey() ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('admin.resources.index', ['resource' => $resource::uriKey()]) }}">
+                            {{ $resource::label() }}
+                        </a>
+                    </li>
+                @endforeach
             </ul>
 
             <!-- Right Side Of Navbar -->

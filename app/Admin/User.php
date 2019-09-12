@@ -5,15 +5,13 @@ namespace App\Admin;
 use App\Admin\Fields\ID;
 use App\Admin\Fields\Text;
 use App\Admin\Fields\Boolean;
-use App\User;
+use App\Admin\Core\Resource;
 
-class UserResource extends Resource
+class User extends Resource
 {
     public $viewName = 'users';
 
-    public $model = User::class;
-
-    public $name = "User";
+    public static $model = 'App\User';
 
     public $title = 'name';
 

@@ -229,6 +229,7 @@ return [
         // Custom...
 
         'ReadableUnit' => App\Services\ReadableUnit::class,
+        'Admin' => App\Admin\Core\Admin::class,
 
     ],
 

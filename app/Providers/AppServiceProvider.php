@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\CartManager;
-use Route;
+use Admin;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +18,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('cart', function ($app) {
             return $app->make(CartManager::class);
         });
+
+        // Register admin resources...
+        Admin::resources([
+            \App\Admin\Product::class,
+            \App\Admin\Category::class,
+            \App\Admin\User::class,
+        ]);
     }
 
     /**

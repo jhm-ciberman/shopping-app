@@ -2,15 +2,15 @@
 
 namespace App\Admin;
 
-use App\Category;
 use App\Admin\Fields\ID;
 use App\Admin\Fields\Text;
+use App\Admin\Core\Resource;
 
-class CategoryResource extends Resource
+class Category extends Resource
 {
     public $viewName = 'categories';
 
-    public $model = Category::class;
+    public static $model = 'App\Category';
 
     public $name = "Category";
 
