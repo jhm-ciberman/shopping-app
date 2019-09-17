@@ -21,27 +21,27 @@ class Cart extends Model
 
     /**
      * The cart items
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function items() 
+    public function items()
     {
         return $this->hasMany('App\CartItem');
     }
 
     /**
      * The cart's user
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user() 
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
 
     /**
      * Add a product to the cart
-     * 
+     *
      * @param  $product
      * @param  $quantity
      */
@@ -52,15 +52,15 @@ class Cart extends Model
         }
 
         return $this->items()->updateOrCreate(
-            ['product_id' => $product->id], 
+            ['product_id' => $product->id],
             ['quantity'   => $quantity]
         );
     }
 
-    public function addMany($items) 
+    public function addMany($items)
     {
-        if (! $cart->exists) {
-            $cart->save();
+        if (! $this->exists) {
+            $this->save();
         }
 
         $items = collect($items)->reject(function($item) {
@@ -72,7 +72,7 @@ class Cart extends Model
 
     /**
      * Find the product inside the cart
-     * 
+     *
      * @param  App\Product  $product
      * @return App\CartItem
      */
@@ -87,7 +87,7 @@ class Cart extends Model
 
     /**
      * Find the product inside the cart
-     * 
+     *
      * @param  App\Product|App\CartItem  $productOrItem
      * @return App\CartItem
      */
@@ -137,7 +137,7 @@ class Cart extends Model
 
     /**
      * Returns if the cart is anonymous
-     * 
+     *
      * @return  bool
      */
     public function isAnonymous()
@@ -147,7 +147,7 @@ class Cart extends Model
 
     /**
      * Returns if the cart is empty
-     * 
+     *
      * @return  bool
      */
     public function isEmpty()
@@ -157,7 +157,7 @@ class Cart extends Model
 
     /**
      * Returns if the cart is not empty
-     * 
+     *
      * @return  bool
      */
     public function isNotEmpty()
@@ -167,7 +167,7 @@ class Cart extends Model
 
     /**
      * Returns if the cart reaches the minimum amount
-     * 
+     *
      * @return  bool
      */
     public function reachesMinimumAmount()
@@ -177,7 +177,7 @@ class Cart extends Model
 
     /**
      * Returns the minimum cash amount needed to create an order from this cart
-     * 
+     *
      * @return float
      */
     public static function getMinimumAmount()
