@@ -32,4 +32,9 @@ abstract class Relationship extends Field
     {
         return new $this->resourceClass;
     }
+
+    public function indexFields()
+    {
+        return $this->newResource()->indexFields();
+    }
 }

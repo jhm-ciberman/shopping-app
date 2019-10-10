@@ -5,6 +5,7 @@ namespace App\Admin;
 use App\Admin\Fields\ID;
 use App\Admin\Fields\Text;
 use App\Admin\Fields\Boolean;
+use App\Admin\Fields\HasMany;
 use App\Admin\Core\Resource;
 
 class User extends Resource
@@ -13,6 +14,8 @@ class User extends Resource
 
     public $title = 'name';
 
+    public $canCreate = false;
+
     public function fields()
     {
         return [
@@ -20,6 +23,8 @@ class User extends Resource
             Text::make('Name', 'name'),
             Text::make('Email', 'email'),
             Boolean::make('Is admin', 'is_admin'),
+
+            HasMany::make('Orders', 'orders', 'App\Admin\Order'),
         ];
     }
 }

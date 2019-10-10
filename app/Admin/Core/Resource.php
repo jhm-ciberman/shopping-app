@@ -82,12 +82,16 @@ abstract class Resource
 
     public function editFields()
     {
-        return $this->filterFields('showOnUpdate');
+        return $this->filterFields('showOnUpdate')->reject(function($field) {
+            return $field instanceof ListableField;
+        });
     }
 
     public function createFields()
     {
-        return $this->filterFields('showOnCreation');
+        return $this->filterFields('showOnCreation')->reject(function($field) {
+            return $field instanceof ListableField;
+        });
     }
 
     public function listableDetailFields()
