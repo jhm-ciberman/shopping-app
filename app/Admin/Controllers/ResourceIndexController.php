@@ -18,7 +18,7 @@ class ResourceIndexController extends Controller
             ? $request->newViaResource()
             : $request->newResource();
 
-        $fields = $request->newResource()->indexFields();
+        $fields = $resource->indexFields();
 
         if ($request->expectsJson()) {
             $query = $request->newQuery();

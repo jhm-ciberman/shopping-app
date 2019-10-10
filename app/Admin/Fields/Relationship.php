@@ -37,4 +37,13 @@ abstract class Relationship extends Field
     {
         return $this->newResource()->indexFields();
     }
+
+    public function attachUrl($resource)
+    {
+        return route('admin.resources.attach', [
+            'resource' => $resource::uriKey(),
+            'resourceId' => $resource->id,
+            'relatedResource' => $this->attribute,
+        ]);
+    }
 }

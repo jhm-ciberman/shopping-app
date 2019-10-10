@@ -40,9 +40,17 @@
 
     @foreach($relationshipFields as $field)
         <div class="my-2">
-            <div class="col mt-3">
-                <h1>Related {{ $field->name }}</h1>
+            <div class="row">
+                <div class="col mt-3">
+                    <h1>Related {{ $field->name }}</h1>
+                </div>
+                <div class="col-auto ml-2">
+                    <a href="{{ $field->attachUrl($resource) }}" class="edit-button float-right btn d-inline-block btn-success" aria-label="Edit resource">
+                            Attach resource<i class="material-icons ml-2">add</i>
+                    </a>
+                </div>
             </div>
+
             <resource-index
                 endpoint-url="{{ $field->newResource()->indexEndpoint() }}"
                 :columns='@json($field->indexFields()->map->jsonSerialize()->values())'

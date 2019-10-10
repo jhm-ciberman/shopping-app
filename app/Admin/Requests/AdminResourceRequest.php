@@ -133,6 +133,28 @@ class AdminResourceRequest extends FormRequest
     }
 
     /**
+     * Get the class name of the "related" resource being requested.
+     *
+     * @return string
+     */
+    public function relatedResource()
+    {
+        return Admin::resourceForKey($this->relatedResource);
+    }
+
+    /**
+     * Get a new instance of the "related" resource being requested.
+     *
+     * @return \Laravel\Nova\Resource
+     */
+    public function newRelatedResource()
+    {
+        $resource = $this->relatedResource();
+
+        return new $resource($resource::newModel());
+    }
+
+    /**
      * Get a new instance of the underlying model.
      *
      * @return \Illuminate\Database\Eloquent\Model
