@@ -28,14 +28,31 @@
     </div>
 
 
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-body">
             @foreach($fields as $field)
                 @component('admin.components.field-container', ['field' => $field])
-                    {{ $field->resolve($model) }}
+                    {{ $field->resolve($resource) }}
                 @endcomponent
             @endforeach
         </div>
     </div>
+
+    @foreach($relationshipFields as $field)
+        <div class="my-2">
+            <div class="col mt-3">
+                <h1>Related {{ $field->name }}</h1>
+            </div>
+            <resource-index
+                endpoint-url="{{ $field->newResource()->indexEndpoint() }}"
+                :columns='@json($field->indexFields()->map->jsonSerialize()->values())'
+                :endpoint-params='@json($field->toEndpointParams($resource))'
+                >
+            </resource-index>
+        </div>
+
+    @endforeach
+
+
 
 @endsection

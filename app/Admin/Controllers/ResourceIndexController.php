@@ -14,7 +14,9 @@ class ResourceIndexController extends Controller
      */
     public function handle(AdminResourceRequest $request)
     {
-        $resource = $request->newResource();
+        $resource = ($request->viaRelationship())
+            ? $request->newViaResource()
+            : $request->newResource();
 
         $fields = $request->newResource()->indexFields();
 
@@ -25,9 +27,8 @@ class ResourceIndexController extends Controller
         }
 
         return view('admin.index', [
+            'resource'  => $resource,
             'title'     => $resource::label(),
-            'endpoint'  => $this->resourceRoute($resource, 'index'),
-            'createUrl' => $resource->canCreate ? $this->resourceRoute($resource, 'create') : null,
             'fields'    => $fields,
         ]);
     }
