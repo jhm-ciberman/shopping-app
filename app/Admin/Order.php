@@ -12,6 +12,8 @@ class Order extends Resource
 
     public $title = 'id';
 
+    public $canCreate = false;
+
     public function fields()
     {
         return [

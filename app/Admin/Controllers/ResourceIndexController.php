@@ -16,6 +16,8 @@ class ResourceIndexController extends Controller
     {
         $resource = $request->newResource();
 
+        $fields = $request->newResource()->indexFields();
+
         if ($request->expectsJson()) {
             $query = $request->newQuery();
             $resource->indexQuery($query);
@@ -25,8 +27,8 @@ class ResourceIndexController extends Controller
         return view('admin.index', [
             'title'     => $resource::label(),
             'endpoint'  => $this->resourceRoute($resource, 'index'),
-            'createUrl' => $this->resourceRoute($resource, 'create'),
-            'fields'    => $request->newResource()->indexFields(),
+            'createUrl' => $resource->canCreate ? $this->resourceRoute($resource, 'create') : null,
+            'fields'    => $fields,
         ]);
     }
 

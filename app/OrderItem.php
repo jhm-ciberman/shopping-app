@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasPrice;
 use App\Services\ReadableUnit;
-use App\CartItem;
 
 class OrderItem extends Model
 {
@@ -59,16 +58,6 @@ class OrderItem extends Model
         'quantity'      => 'decimal:2',
         'delivered_quantity' => 'decimal:2',
     ];
-
-    /**
-     * Creates an OrderItem from a CartItem
-     * 
-     * @return  App\OrderItem
-     */
-    public static function fromCartItem(CartItem $cartItem)
-    {
-        return $cartItem->toOrderItem();
-    }
 
     /**
      * The associated order

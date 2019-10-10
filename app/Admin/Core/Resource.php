@@ -30,6 +30,8 @@ abstract class Resource
      */
     public $title = 'id';
 
+    public $canCreate = true;
+
     /**
      * Create a new resource instance.
      *

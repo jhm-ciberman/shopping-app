@@ -25,6 +25,10 @@ class Product extends Model implements HasMedia
         'discount',
     ];
 
+    protected $appends = [
+        'discounted_price'
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -33,6 +37,7 @@ class Product extends Model implements HasMedia
     protected $casts = [
         'price'              => 'decimal:2',
         'discount'           => 'decimal:2',
+        'discounted_price'   => 'decimal:2',
     ];
 
     /**

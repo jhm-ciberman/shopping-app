@@ -6,7 +6,7 @@
 
         @foreach(Admin::getResources() as $resource)
 
-            <div class="col">
+            <div class="col-12 col-md-4">
                 @component('admin.components.card')
                     <h2>{{ $resource::label() }}</h2>
                     <div class="text-big">{{ $resource::newModel()->count() }}</div>

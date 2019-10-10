@@ -30,6 +30,7 @@ class Product extends Resource
             Textarea::make('Description', 'description'),
             Text::make('Price', 'price'),
             Text::make('Discount', 'discount'),
+            Text::make('Discounted price', 'discounted_price')->exceptOnForms(),
         ];
     }
 

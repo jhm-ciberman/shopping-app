@@ -11,7 +11,7 @@ trait HasPrice
      */
     public function getDiscountedPriceAttribute()
     {
-        return  $this->price - $this->discount;
+        return $this->asDecimal($this->price - $this->discount, 2);
     }
 
     /**
