@@ -32,6 +32,14 @@
                 @yield('content')
             </div>
         </main>
+
+        <footer class="bg-dark text-muted py-3">
+            <div class="container">
+                <div class="row justify-content-center">
+                    {{ config('app.name', 'Laravel') }} © {{ date('Y') }} All right reserved
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

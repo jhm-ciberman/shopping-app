@@ -9,25 +9,25 @@ class FakeImage
 
     /**
      * The file name
-     * 
+     *
      * @var string
      */
     private $filename;
 
     /**
      * The disk name
-     * 
+     *
      * @var string
      */
     private $disk;
 
-    public function __construct(String $filename, $disk = 'local') 
+    public function __construct(String $filename, $disk = 'local')
     {
         $this->filename = $filename;
         $this->disk = $disk;
     }
 
-    public function download($force = false) 
+    public function download($force = false)
     {
         if (!$force && $this->exists()) {
             return;
@@ -45,17 +45,17 @@ class FakeImage
 
     /**
      * Returns if the image exists
-     * 
+     *
      * @return bool
      */
-    public function exists() 
+    public function exists()
     {
         return Storage::disk($this->disk)->exists($this->filename);
     }
 
     /**
      * Returns the image path
-     * 
+     *
      * @return string
      */
     public function getPath()
@@ -65,9 +65,9 @@ class FakeImage
         return Storage::disk($this->disk)->path($this->filename) ;
     }
 
-    protected function imageUrl() 
+    protected function imageUrl()
     {
-        return 'https://picsum.photos/640/480/?random';
+        return 'https://picsum.photos/1080/1080/?random';
     }
 
 }

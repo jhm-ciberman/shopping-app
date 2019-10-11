@@ -27,7 +27,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show', compact('product'));
+        return view('products.show', [
+            'product' => $product,
+            'relatedProducts' => Product::inRandomOrder()->take(4)->get(),
+        ]);
     }
 
 }
