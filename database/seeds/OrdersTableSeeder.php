@@ -28,9 +28,10 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         $number = random_int(1, 3);
-        Product::inRandomOrder()->take($number)->get()->each(function() use ($order) {
+        Product::inRandomOrder()->take($number)->get()->each(function($product) use ($order) {
             factory(OrderItem::class)->create([
                 'order_id' => $order->id,
+                'product_id' => $product->id,
             ]);
         });
     }
