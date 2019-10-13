@@ -74,9 +74,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "admin" routes for the application.
-     *
-     * These routes are typically stateless.
+     * Define the "admin" routes for the application. (Admin panel)
      *
      * @return void
      */
@@ -84,7 +82,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('admin')
              ->name('admin.')
-             ->middleware(['web', 'auth'])
+             ->middleware(['web', 'auth', 'admin'])
              ->namespace('App\Admin\Controllers')
              ->group(base_path('routes/admin.php'));
     }

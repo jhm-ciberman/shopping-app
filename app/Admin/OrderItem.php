@@ -14,6 +14,8 @@ class OrderItem extends Resource
 
     public $canCreate = false;
 
+    public static $displayInNavigation = false;
+
     public function fields()
     {
         return [

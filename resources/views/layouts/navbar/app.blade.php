@@ -10,9 +10,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ Route::currentRouteName() === 'products.index' ?: 'active' }}">
-                    <a class="nav-link" href="{{ route('products.index')}}">Products</a>
+                <li class="nav-item {{ request()->url() === route('products.index') ?: 'active' }}">
+                    <a class="nav-link" href="{{ route('products.index') }}">Products</a>
                 </li>
+
+                @foreach (App\Category::all() as $category)
+                    <li class="nav-item {{ request()->url()  === route('category.show', $category) ?: 'active' }}">
+                        <a class="nav-link" href="{{ route('category.show', $category) }}">{{ $category->name }}</a>
+                    </li>
+                @endforeach
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -34,18 +40,15 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            @if (Auth::user()->isAdmin)
+                            @if (Auth::user()->is_admin)
                                 <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
                                     {{ __('Go to admin panel') }}
                                 </a>
                             @endif
 
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-
-
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf

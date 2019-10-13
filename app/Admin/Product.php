@@ -11,8 +11,6 @@ use App\Admin\Core\Resource;
 
 class Product extends Resource
 {
-    public $viewName = 'products';
-
     public static $model = 'App\Product';
 
     public $name = "Product";
