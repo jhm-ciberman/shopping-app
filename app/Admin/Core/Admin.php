@@ -19,7 +19,7 @@ class Admin
     public static function getNavbarResources()
     {
         return static::getResources()->filter(function($item) {
-            return $item::displayInNavigation;
+            return $item::$displayInNavigation;
         });
     }
 
