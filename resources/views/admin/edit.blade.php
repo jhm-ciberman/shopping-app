@@ -3,7 +3,7 @@
 @section('content')
     <h1>{{ $title }}</h1>
 
-    <form method="POST" action="{{ $action }}">
+    <form method="POST" action="{{ $action }}" enctype="multipart/form-data">
     @csrf
     @method($method)
 

@@ -17,7 +17,8 @@ class ResourceStoreController extends Controller
         $resource = $request->newResource();
         $resource->authorizeTo('create');
 
-        $model = $resource->newModel();
+        $resource->fill($request);
+        $resource->save();
 
         $this->updateModel($model, $resource->editFields());
 

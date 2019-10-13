@@ -32,7 +32,11 @@
         <div class="card-body">
             @foreach($fields as $field)
                 @component('admin.components.field-container', ['field' => $field])
-                    {{ $field->resolve($resource) }}
+                    @if (View::exists('admin.fields.'.$field->view().'-detail'))
+                        @include('admin.fields.'.$field->view().'-detail')
+                    @else
+                        {{ $field->resolve($resource->resource) }}
+                    @endif
                 @endcomponent
             @endforeach
         </div>

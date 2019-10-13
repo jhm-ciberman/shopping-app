@@ -9,6 +9,11 @@ trait HasProductImages
 {
     use HasMediaTrait;
 
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('default')->singleFile();
+    }
+
     /**
      * Register the media convertions
      */

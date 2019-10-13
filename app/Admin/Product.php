@@ -5,6 +5,7 @@ namespace App\Admin;
 use App\Admin\Fields\ID;
 use App\Admin\Fields\Text;
 use App\Admin\Fields\Date;
+use App\Admin\Fields\File;
 use App\Admin\Fields\Textarea;
 use App\Admin\Fields\HasMany;
 use App\Admin\Core\Resource;
@@ -34,6 +35,7 @@ class Product extends Resource
             Money::make('Discounted price', 'discounted_price')->exceptOnForms(),
             Date::make('Created at', 'created_at')->exceptOnForms(),
             Date::make('Updated at', 'updated_at')->exceptOnForms(),
+            File::make('Image', 'image')->hideFromIndex(),
 
             HasMany::make('Categories', 'categories', 'App\Admin\Category'),
         ];

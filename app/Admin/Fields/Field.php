@@ -189,6 +189,11 @@ abstract class Field
         return $model->{$attribute};
     }
 
+    public function fill($request, $model)
+    {
+        $model->{$this->attribute} = $request->input($this->attribute);
+    }
+
     public function jsonSerialize()
     {
         return [

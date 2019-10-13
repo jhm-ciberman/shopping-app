@@ -166,6 +166,11 @@ abstract class Resource
         return static::authorizable() ? Gate::check($ability, $this->resource) : true;
     }
 
+    public function fill($request)
+    {
+        $this->editFields()->each->fill($request, $this->resource);
+    }
+
     public function serializeForIndex()
     {
         $arr = [];
