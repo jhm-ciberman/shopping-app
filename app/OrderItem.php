@@ -16,7 +16,7 @@ class OrderItem extends Model
      * @var array
      */
     protected $fillable = [
-        'product_id', 
+        'product_id',
         'quantity',
         'price',
     ];
@@ -46,6 +46,9 @@ class OrderItem extends Model
         'delivered_quantity' => null,
     ];
 
+    protected $appends = [
+        'title'
+    ];
 
     /**
      * The attributes that should be cast to native types.
@@ -61,24 +64,24 @@ class OrderItem extends Model
 
     /**
      * The associated order
-     * 
+     *
      * @var Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function order() 
+    public function order()
     {
         return $this->belongsTo('App\Order');
     }
 
     /**
      * The associated product
-     * 
+     *
      * @var Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function product() 
+    public function product()
     {
         return $this->belongsTo('App\Product')->withTrashed();
     }
-    
+
     /**
      * Total price for all the items in the order item without discount
      *
@@ -110,66 +113,6 @@ class OrderItem extends Model
     }
 
     /**
-     * Delivered Total price for all the items in the order item without discount
-     *
-     * @return float
-     */
-    public function getDeliveredTotalAttribute()
-    {
-        return $this->price * $this->delivered_quantity;
-    }
-
-    /**
-     * Delivered Total price for all the items in the order item without discount
-     *
-     * @return float
-     */
-    public function getDeliveredQuantityAttribute($value)
-    {
-        return $value ?? $this->quantity;
-    }
-
-    /**
-     * Gets the  Delivered Quantity in the order item
-     *
-     * @return float
-     */
-    public function getRealDeliveredQuantityAttribute()
-    {
-        return $this->attributes['delivered_quantity'];
-    }
-
-    /**
-     * Sets the Delivered Quantity in the order item
-     *
-     * @return float
-     */
-    public function setRealDeliveredQuantityAttribute($value)
-    {
-        $this->attributes['delivered_quantity'] = $value;
-    }
-
-    /**
-     * Delivered Total price for all the items in the order item with discount
-     *
-     * @return float
-     */
-    public function getDeliveredDiscountedTotalAttribute()
-    {
-        return $this->discounted_price * $this->delivered_quantity;
-    }
-
-    /**
-     * Delivered Total discount for all the items in the order
-     *
-     * @return float
-     */
-    public function getDeliveredTotalDiscountAttribute()
-    {
-        return $this->discount * $this->delivered_quantity;
-    }
-
-    /**
      * Returns if the order item has a discount
      *
      * @return bool
@@ -188,7 +131,7 @@ class OrderItem extends Model
     {
         return implode(' ', [
             ReadableUnit::quantity($this->quantity),
-            ReadableUnit::short($this->product->unit_type), 
+            'x',
             $this->product->name
         ]);
     }
@@ -202,7 +145,7 @@ class OrderItem extends Model
 
     /**
      * Returns true if the product is invalid or null
-     * 
+     *
      * @return bool
      */
     public function invalidProduct()
@@ -210,7 +153,7 @@ class OrderItem extends Model
         return ($this->product === null) || ($this->product->trashed());
     }
 
-    public function toCartItem() 
+    public function toCartItem()
     {
         return [
             'product_id' => $this->product_id,

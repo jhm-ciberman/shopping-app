@@ -15,6 +15,7 @@ class ResourceStoreController extends Controller
     public function handle(AdminResourceRequest $request)
     {
         $resource = $request->newResource();
+        $resource->authorizeTo('create');
 
         $model = $resource->newModel();
 

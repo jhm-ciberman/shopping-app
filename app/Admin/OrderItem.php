@@ -4,7 +4,9 @@ namespace App\Admin;
 
 use App\Admin\Fields\ID;
 use App\Admin\Fields\Text;
+use App\Admin\Fields\Date;
 use App\Admin\Core\Resource;
+use App\Admin\Fields\Money;
 
 class OrderItem extends Resource
 {
@@ -20,8 +22,11 @@ class OrderItem extends Resource
     {
         return [
             ID::make(),
-            Text::make('Product ID', 'product_id')->onlyOnIndex(),
-            Text::make('Created at', 'created_at')->onlyOnIndex(),
+            Money::make('Product', 'title')->exceptOnForms(),
+            Money::make('Price', 'price')->exceptOnForms(),
+            Money::make('Discount', 'discount')->exceptOnForms(),
+            Money::make('Discounted total', 'discounted_total')->exceptOnForms(),
+            Date::make('Created at', 'created_at')->exceptOnForms(),
         ];
     }
 }

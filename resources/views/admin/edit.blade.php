@@ -12,7 +12,7 @@
 
                 @foreach($fields as $field)
                     @component('admin.components.field-container', ['field' => $field])
-                        @include('admin.fields.'.$field->fieldName(), [
+                        @include('admin.fields.'.$field->view(), [
                             'name' => $field->attribute,
                             'label' => $field->name,
                             'value' => $model->{$field->attribute},

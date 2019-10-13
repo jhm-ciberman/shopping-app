@@ -18,18 +18,19 @@ class ResourceIndexController extends Controller
             ? $request->newViaResource()
             : $request->newResource();
 
-        $fields = $resource->indexFields();
-
         if ($request->expectsJson()) {
             $query = $request->newQuery();
             $resource->indexQuery($query);
-            return $query->paginate();
+            $paginator = $query->paginate();
+            $collection = $paginator->getCollection()->mapInto($request->resource())->map->serializeForIndex();
+
+            return $paginator->setCollection($collection);
         }
 
         return view('admin.index', [
             'resource'  => $resource,
             'title'     => $resource::label(),
-            'fields'    => $fields,
+            'fields'    => $resource->indexFields(),
         ]);
     }
 

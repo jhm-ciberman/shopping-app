@@ -48,6 +48,13 @@ abstract class Field
      */
     public $showOnUpdate = true;
 
+    /**
+     * The view name
+     *
+     * @var string
+     */
+    protected $view;
+
     public function __construct($name, $attribute = null)
     {
         $this->name = $name;
@@ -165,9 +172,9 @@ abstract class Field
     }
 
 
-    public function fieldName()
+    public function view()
     {
-        return Str::kebab(class_basename($this));
+        return $this->view ?? Str::kebab(class_basename($this));
     }
 
     public static function make(... $arguments)

@@ -17,8 +17,9 @@ class ResourceUpdateController extends Controller
     public function handle(AdminResourceRequest $request)
     {
         $model = $request->findModelQuery()->firstOrFail();
-
         $resource = $request->newResourceWith($model);
+
+        $resource->authorizeTo('edit');
 
         $this->updateModel($model, $resource->editFields());
 

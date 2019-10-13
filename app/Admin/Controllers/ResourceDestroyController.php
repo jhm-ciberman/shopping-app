@@ -14,7 +14,11 @@ class ResourceDestroyController extends Controller
      */
     public function handle(AdminResourceRequest $request)
     {
-        $request->findModelQuery()->firstOrFail()->delete();
+        $model = $request->findModelQuery()->firstOrFail();
+        $resource = $request->newResourceWith($model);
+        $resource->authorizeTo('delete');
+
+        $resource->delete();
 
         if (request()->expectsJson()) {
             return;

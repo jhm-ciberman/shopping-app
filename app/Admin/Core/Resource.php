@@ -4,6 +4,8 @@ namespace App\Admin\Core;
 
 use App\Admin\Fields\ListableField;
 use Illuminate\Http\Resources\DelegatesToResource;
+use Illuminate\Auth\Access\AuthorizationException;
+use Gate;
 use Str;
 
 abstract class Resource
@@ -147,5 +149,29 @@ abstract class Resource
     public function createEndpoint()
     {
         return route('admin.resources.create', ['resource' => static::uriKey()]);
+    }
+
+    public static function authorizable()
+    {
+        return ! is_null(Gate::getPolicyFor(static::newModel()));
+    }
+
+    public function authorizeTo($ability)
+    {
+        throw_unless($this->authorizedTo($ability), AuthorizationException::class);
+    }
+
+    public function authorizedTo($ability)
+    {
+        return static::authorizable() ? Gate::check($ability, $this->resource) : true;
+    }
+
+    public function serializeForIndex()
+    {
+        $arr = [];
+        foreach ($this->indexFields() as $field) {
+            $arr[$field->attribute] = $field->resolve($this->resource);
+        }
+        return $arr;
     }
 }

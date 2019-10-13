@@ -5,7 +5,7 @@
         <div class="col">
             <h1>{{ $title }}</h1>
         </div>
-        @if ($resource->canCreate)
+        @if ($resource->authorizedTo('create'))
             <div class="col-auto">
                 <div class="row no-gutters align-content-end">
                     <div class="col-auto ml-2">
