@@ -15,13 +15,13 @@ class ResourceStoreController extends Controller
     public function handle(AdminResourceRequest $request)
     {
         $resource = $request->newResource();
+        $resource->authorizeTo('create');
 
-        $model = $resource->newModel();
-
-        $this->updateModel($model, $resource->editFields());
+        $resource->fill($request);
+        $resource->save();
 
         if (request()->expectsJson()) {
-            return $model;
+            return $resource;
         }
 
         return redirect($this->resourceRoute($resource, 'index'));

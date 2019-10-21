@@ -3,9 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Cart;
-use App\Address;
-use App\ShippingPeriod;
 
 class Order extends Model
 {
@@ -30,37 +27,37 @@ class Order extends Model
 
     /**
      * The Order items
-     * 
+     *
      * @var Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function items() 
+    public function items()
     {
         return $this->hasMany('App\OrderItem');
     }
 
     /**
      * The Order user
-     * 
+     *
      * @var Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user() 
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
 
     /**
      * The Shipping period (if exists)
-     * 
+     *
      * @var Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function shippingPeriod() 
+    public function shippingPeriod()
     {
         return $this->belongsTo('App\ShippingPeriod')->withTrashed();
     }
 
     /**
      * The reports that belong to the order.
-     * 
+     *
      * @var Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function reports()
@@ -70,20 +67,20 @@ class Order extends Model
 
     /**
      * Returns the url for printing this order
-     * 
+     *
      * @var string
      */
-    public function getPrintingUrlAttribute() 
+    public function getPrintingUrlAttribute()
     {
         return route('pdf.order.printing', $this);
     }
 
     /**
      * Returns the url for printing this order
-     * 
+     *
      * @var string
      */
-    public function getMailUrlAttribute() 
+    public function getMailUrlAttribute()
     {
         return route('pdf.order', $this);
     }

@@ -3,11 +3,16 @@
 namespace App\Traits;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
-use Spatie\Image\Manipulations; 
+use Spatie\Image\Manipulations;
 
 trait HasProductImages
 {
     use HasMediaTrait;
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('default')->singleFile();
+    }
 
     /**
      * Register the media convertions
@@ -17,7 +22,7 @@ trait HasProductImages
         $this->addMediaConversion('thumb')
                 ->crop(Manipulations::CROP_CENTER, 64, 64)
                 ->nonQueued();
-        
+
         $this->addMediaConversion('small')
                 ->crop(Manipulations::CROP_CENTER, 183, 137)
                 ->nonQueued();
@@ -26,9 +31,8 @@ trait HasProductImages
                 ->crop(Manipulations::CROP_CENTER, 430, 300)
                 ->nonQueued();
 
-        $this->addMediaConversion('big')
-                ->width(960)
-                ->height(700)
+        $this->addMediaConversion('carousel')
+                ->crop(Manipulations::CROP_CENTER, 1080, 400)
                 ->nonQueued();
     }
 
@@ -52,8 +56,8 @@ trait HasProductImages
         return $this->getMediaAtIndex('small', $index);
     }
 
-    public function displayImage($index = 0)
+    public function carouselImage($index = 0)
     {
-        return $this->getMediaAtIndex('display', $index);
+        return $this->getMediaAtIndex('carousel', $index);
     }
 }

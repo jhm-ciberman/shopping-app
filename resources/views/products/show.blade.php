@@ -3,7 +3,7 @@
 @section('content')
 <div class="justify-content-center">
     <div class="row">
-        <div class="col-auto mb-2 px-md-0 col-12 col-md-6 bg-light">
+        <div class="col-auto mb-2 px-md-0 col-12 col-md-6">
             <img class="img-fluid rounded w-100" width="430" height="300" src="{{ $product->mediumImage() }}" alt="{{ $product->name }}">
         </div>
 
@@ -43,5 +43,20 @@
             </div>
         </div>
     </div>
+
+
+    <div class="my-4">
+        <h2>You may like...</h2>
+        <div class="row">
+            @foreach($relatedProducts as $product)
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 px-2 mb-3">
+                    @include('products.card')
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+
+
 </div>
 @endsection

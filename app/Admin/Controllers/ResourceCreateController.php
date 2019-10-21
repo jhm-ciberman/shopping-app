@@ -16,6 +16,8 @@ class ResourceCreateController extends Controller
     {
         $resource = $request->newResource();
 
+        $resource->authorizeTo('create');
+
         return view('admin.edit', [
             'title'     => 'Create '.$resource::singularLabel(),
             'model'     => $resource->newModel(),

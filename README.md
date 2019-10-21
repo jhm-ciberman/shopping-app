@@ -26,6 +26,19 @@ php artisan key:generate
 
 # Build frontend in development mode
 npm run dev
+
+# Create symlink from ./public/storage to ./storage/app/public
+php artisan storage:link
+```
+
+## Seeing the app in action
+
+```bash
+# Migrate and seed database
+php artisan migrate:fresh --seed
+
+# Create initial admin user
+php artisan app:user
 ```
 
 ## Testing

@@ -11,17 +11,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-
-    protected function updateModel($model, $fields)
-    {
-        $attributes = $fields->pluck('attribute')->toArray();
-
-        $model->forceFill(request()->only($attributes));
-
-        $model->save();
-    }
-
-
     protected function resourceRoute($resource, $action, $model = null)
     {
         return route('admin.resources.'.$action, array_merge(

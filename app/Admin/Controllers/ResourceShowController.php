@@ -2,6 +2,8 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Fields\Relationship;
+use App\Admin\Fields\ListableField;
 use App\Admin\Requests\AdminResourceRequest;
 
 class ResourceShowController extends Controller
@@ -18,10 +20,11 @@ class ResourceShowController extends Controller
         $resource = $request->newResourceWith($model);
 
         return view('admin.show', [
-            'title'      => $resource::singularLabel(),
-            'model'      => $model,
-            'fields'     => $resource->detailFields(),
-            'editUrl'    => $this->resourceRoute($resource, 'edit', $model),
+            'title' => $resource::singularLabel(),
+            'resource' => $resource,
+            'fields' => $resource->detailFields(),
+            'relationshipFields' => $resource->listableDetailFields(),
+            'editUrl' => $this->resourceRoute($resource, 'edit', $model),
             'destroyUrl' => $this->resourceRoute($resource, 'destroy', $model),
         ]);
     }

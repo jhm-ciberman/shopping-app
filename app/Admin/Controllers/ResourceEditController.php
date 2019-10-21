@@ -17,6 +17,8 @@ class ResourceEditController extends Controller
         $model = $request->findModelQuery()->firstOrFail();
         $resource = $request->newResourceWith($model);
 
+        $resource->authorizeTo('edit');
+
         return view('admin.edit', [
             'title'  => 'Edit '.$resource::singularLabel(),
             'model'  => $model,

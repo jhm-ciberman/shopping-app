@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
 
-                @foreach(Admin::getResources() as $resource)
+                @foreach(Admin::getNavbarResources() as $resource)
                     <li class="nav-item {{ url()->current() === 'admin/'.$resource::uriKey() ? 'active' : ''}}">
                         <a class="nav-link" href="{{ route('admin.resources.index', ['resource' => $resource::uriKey()]) }}">
                             {{ $resource::label() }}
@@ -43,9 +43,6 @@
                 </li>
 
             </ul>
-
-
-
         </div>
     </div>
 </nav>

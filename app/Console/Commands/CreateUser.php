@@ -14,7 +14,7 @@ class CreateUser extends Command
      *
      * @var string
      */
-    protected $signature = 'shop:user';
+    protected $signature = 'app:user';
 
     /**
      * The console command description.
@@ -52,7 +52,7 @@ class CreateUser extends Command
 
         $this->validator($data)->validate();
 
-        $this->create(array_merge($data, ['is_admin' => true]));
+        $this->create($data);
     }
 
     protected function validator(array $data)
@@ -66,7 +66,7 @@ class CreateUser extends Command
 
     protected function create(array $data)
     {
-        return User::create([
+        return User::forceCreate([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

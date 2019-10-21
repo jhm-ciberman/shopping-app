@@ -13,7 +13,14 @@ class Admin
 
     public static function getResources()
     {
-        return static::$resources;
+        return collect(static::$resources);
+    }
+
+    public static function getNavbarResources()
+    {
+        return static::getResources()->filter(function($item) {
+            return $item::$displayInNavigation;
+        });
     }
 
     /**
@@ -24,7 +31,7 @@ class Admin
      */
     public static function resourceForKey($key)
     {
-        return collect(static::$resources)->first(function ($value) use ($key) {
+        return static::getResources()->first(function ($value) use ($key) {
             return $value::uriKey() === $key;
         });
     }

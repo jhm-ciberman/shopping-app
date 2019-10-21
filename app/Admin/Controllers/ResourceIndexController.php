@@ -14,19 +14,23 @@ class ResourceIndexController extends Controller
      */
     public function handle(AdminResourceRequest $request)
     {
-        $resource = $request->newResource();
+        $resource = ($request->viaRelationship())
+            ? $request->newViaResource()
+            : $request->newResource();
 
         if ($request->expectsJson()) {
             $query = $request->newQuery();
             $resource->indexQuery($query);
-            return $query->paginate();
+            $paginator = $query->paginate();
+            $collection = $paginator->getCollection()->mapInto($request->resource())->map->serializeForIndex();
+
+            return $paginator->setCollection($collection);
         }
 
         return view('admin.index', [
+            'resource'  => $resource,
             'title'     => $resource::label(),
-            'endpoint'  => $this->resourceRoute($resource, 'index'),
-            'createUrl' => $this->resourceRoute($resource, 'create'),
-            'fields'    => $request->newResource()->indexFields(),
+            'fields'    => $resource->indexFields(),
         ]);
     }
 

@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
             \App\Admin\Product::class,
             \App\Admin\Category::class,
             \App\Admin\Order::class,
+            \App\Admin\OrderItem::class,
             \App\Admin\User::class,
         ]);
     }

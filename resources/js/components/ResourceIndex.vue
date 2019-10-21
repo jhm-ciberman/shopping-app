@@ -24,6 +24,7 @@ export default {
     props: {
         columns: Array,
         endpointUrl: String,
+        endpointParams: Object,
     },
 
     data: function() {
@@ -45,7 +46,10 @@ export default {
     methods: {
 
         getResults(page = 1) {
-            axios.get(this.endpointUrl + '?page=' + page).then(response => {
+
+            axios.get(this.endpointUrl, {
+                params: {...this.endpointParams, page},
+            }).then(response => {
                 console.log(response.data);
                 this.responseData = response.data;
             });

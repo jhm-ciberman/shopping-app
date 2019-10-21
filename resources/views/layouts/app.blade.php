@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,19 +19,30 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
-        @if (request()->route()->named('admin.*'))
-            @include('layouts.navbar.admin')
-        @else
-            @include('layouts.navbar.app')
-        @endif
+<body class="h-100">
+    <div id="app" class="d-flex flex-column h-100">
+        <header>
+            @if (request()->route()->named('admin.*'))
+                @include('layouts.navbar.admin')
+            @else
+                @include('layouts.navbar.app')
+            @endif
+        </header>
 
-        <main class="py-4">
+        <main class="py-4 flex-shrink-0">
             <div class="container">
                 @yield('content')
             </div>
         </main>
+
+        <footer class="footer bg-dark text-muted mt-auto py-3">
+            <div class="container">
+                <div class="row justify-content-center">
+                    {{ config('app.name', 'Laravel') }} © {{ date('Y') }} All right reserved
+                </div>
+            </div>
+        </footer>
     </div>
+
 </body>
 </html>

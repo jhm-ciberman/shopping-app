@@ -16,6 +16,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::resource('products', 'ProductController')->only(['index', 'show']);
+Route::get('category/{category}', 'ProductController@category')->name('category.show');
 
 // Cart
 Route::post('cart/{product}', 'CartController@add')->name('cart.add');

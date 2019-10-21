@@ -60,7 +60,14 @@ class AdminResourceRequest extends FormRequest
      */
     public function newQuery()
     {
-        return $this->model()->newQuery();
+        if (! $this->viaRelationship()) {
+            return $this->model()->newQuery();
+        }
+
+        return forward_static_call([$this->viaResource(), 'newModel'])
+            ->newQueryWithoutScopes()->findOrFail(
+                $this->viaResourceId
+            )->{$this->viaRelationship}();
     }
 
     /**
@@ -126,6 +133,28 @@ class AdminResourceRequest extends FormRequest
     }
 
     /**
+     * Get the class name of the "related" resource being requested.
+     *
+     * @return string
+     */
+    public function relatedResource()
+    {
+        return Admin::resourceForKey($this->relatedResource);
+    }
+
+    /**
+     * Get a new instance of the "related" resource being requested.
+     *
+     * @return \Laravel\Nova\Resource
+     */
+    public function newRelatedResource()
+    {
+        $resource = $this->relatedResource();
+
+        return new $resource($resource::newModel());
+    }
+
+    /**
      * Get a new instance of the underlying model.
      *
      * @return \Illuminate\Database\Eloquent\Model
@@ -135,5 +164,37 @@ class AdminResourceRequest extends FormRequest
         $resource = $this->resource();
 
         return $resource::newModel();
+    }
+
+    /**
+     * Get a new instance of the "via" resource being requested.
+     *
+     * @return \Laravel\Nova\Resource
+     */
+    public function newViaResource()
+    {
+        $resource = $this->viaResource();
+
+        return new $resource($resource::newModel());
+    }
+
+    /**
+     * Get the class name of the "via" resource being requested.
+     *
+     * @return string
+     */
+    public function viaResource()
+    {
+        return Admin::resourceForKey($this->viaResource);
+    }
+
+    /**
+     * Determine if the request is via a relationship.
+     *
+     * @return bool
+     */
+    public function viaRelationship()
+    {
+        return $this->viaResource && $this->viaResourceId && $this->viaRelationship;
     }
 }

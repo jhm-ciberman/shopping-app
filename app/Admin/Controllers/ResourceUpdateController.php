@@ -17,10 +17,12 @@ class ResourceUpdateController extends Controller
     public function handle(AdminResourceRequest $request)
     {
         $model = $request->findModelQuery()->firstOrFail();
-
         $resource = $request->newResourceWith($model);
 
-        $this->updateModel($model, $resource->editFields());
+        $resource->authorizeTo('edit');
+
+        $resource->fill($request);
+        $resource->save();
 
         if (request()->expectsJson()) {
             return $model;

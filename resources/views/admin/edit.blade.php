@@ -3,7 +3,7 @@
 @section('content')
     <h1>{{ $title }}</h1>
 
-    <form method="POST" action="{{ $action }}">
+    <form method="POST" action="{{ $action }}" enctype="multipart/form-data">
     @csrf
     @method($method)
 
@@ -12,7 +12,7 @@
 
                 @foreach($fields as $field)
                     @component('admin.components.field-container', ['field' => $field])
-                        @include('admin.fields.'.$field->fieldName(), [
+                        @include('admin.fields.'.$field->view(), [
                             'name' => $field->attribute,
                             'label' => $field->name,
                             'value' => $model->{$field->attribute},

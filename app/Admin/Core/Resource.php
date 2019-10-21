@@ -2,7 +2,10 @@
 
 namespace App\Admin\Core;
 
+use App\Admin\Fields\ListableField;
 use Illuminate\Http\Resources\DelegatesToResource;
+use Illuminate\Auth\Access\AuthorizationException;
+use Gate;
 use Str;
 
 abstract class Resource
@@ -29,6 +32,15 @@ abstract class Resource
      * @var string
      */
     public $title = 'id';
+
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = true;
+
+    public $canCreate = true;
 
     /**
      * Create a new resource instance.
@@ -65,22 +77,35 @@ abstract class Resource
 
     public function indexFields()
     {
-        return $this->filterFields('showOnIndex');
+        return $this->filterFields('showOnIndex')->reject(function($field) {
+            return $field instanceof ListableField;
+        });
     }
 
     public function detailFields()
     {
-        return $this->filterFields('showOnDetail');
+        return $this->filterFields('showOnDetail')->reject(function($field) {
+            return $field instanceof ListableField;
+        });
     }
 
     public function editFields()
     {
-        return $this->filterFields('showOnUpdate');
+        return $this->filterFields('showOnUpdate')->reject(function($field) {
+            return $field instanceof ListableField;
+        });
     }
 
     public function createFields()
     {
-        return $this->filterFields('showOnCreation');
+        return $this->filterFields('showOnCreation')->reject(function($field) {
+            return $field instanceof ListableField;
+        });
+    }
+
+    public function listableDetailFields()
+    {
+        return $this->filterFields('showOnDetail')->whereInstanceOf(ListableField::class);
     }
 
     protected function filterFields($attr)
@@ -114,5 +139,44 @@ abstract class Resource
     public function indexQuery($query)
     {
         $query->orderBy('id', 'desc');
+    }
+
+    public function indexEndpoint()
+    {
+        return route('admin.resources.index', ['resource' => static::uriKey()]);
+    }
+
+    public function createEndpoint()
+    {
+        return route('admin.resources.create', ['resource' => static::uriKey()]);
+    }
+
+    public static function authorizable()
+    {
+        return ! is_null(Gate::getPolicyFor(static::newModel()));
+    }
+
+    public function authorizeTo($ability)
+    {
+        throw_unless($this->authorizedTo($ability), AuthorizationException::class);
+    }
+
+    public function authorizedTo($ability)
+    {
+        return static::authorizable() ? Gate::check($ability, $this->resource) : true;
+    }
+
+    public function fill($request)
+    {
+        $this->editFields()->each->fill($request, $this->resource);
+    }
+
+    public function serializeForIndex()
+    {
+        $arr = [];
+        foreach ($this->indexFields() as $field) {
+            $arr[$field->attribute] = $field->resolve($this->resource);
+        }
+        return $arr;
     }
 }
