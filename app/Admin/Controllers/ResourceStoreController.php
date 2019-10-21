@@ -20,10 +20,8 @@ class ResourceStoreController extends Controller
         $resource->fill($request);
         $resource->save();
 
-        $this->updateModel($model, $resource->editFields());
-
         if (request()->expectsJson()) {
-            return $model;
+            return $resource;
         }
 
         return redirect($this->resourceRoute($resource, 'index'));
